@@ -15,10 +15,10 @@ const Shop = () => {
   }, [dispatch]);
 
   const filterProductPrice = async (min, max) => {
-    let data = await axios.get(
-      `http://localhost:3009/products?_price=${min}&_price=${max}`
-    );
-    console.log(data.data);
+    dispatch(fetchData(`price_gte=${min}&price_lte=${max}`));
+  };
+  const filterAllPrice = async () => {
+    dispatch(fetchData());
   };
 
   const card = products.map((product) => (
@@ -133,7 +133,9 @@ const Shop = () => {
                           label=""
                           name="price"
                         />
-                        <label htmlFor="All">All</label>
+                        <label htmlFor="All" onClick={(e) => filterAllPrice()}>
+                          All
+                        </label>
                       </div>
                       <div className="filter">
                         <input
@@ -143,7 +145,12 @@ const Shop = () => {
                           label=""
                           name="price"
                         />
-                        <label htmlFor="30">from 30 -50</label>
+                        <label
+                          htmlFor="30"
+                          onClick={(e) => filterProductPrice(30, 50)}
+                        >
+                          from 30 -50
+                        </label>
                       </div>
                       <div className="filter">
                         <input
@@ -152,7 +159,12 @@ const Shop = () => {
                           className="price"
                           name="price"
                         />
-                        <label htmlFor="60">from 60 -80</label>
+                        <label
+                          htmlFor="60"
+                          onClick={(e) => filterProductPrice(60, 80)}
+                        >
+                          from 60 -80
+                        </label>
                       </div>
                       <div className="filter">
                         <input
@@ -163,7 +175,7 @@ const Shop = () => {
                         />
                         <label
                           htmlFor="90"
-                          onClick={(e) => filterProductPrice(40, 70)}
+                          onClick={(e) => filterProductPrice(90, 100)}
                         >
                           from 90 -100
                         </label>
@@ -175,7 +187,12 @@ const Shop = () => {
                           className="price"
                           name="price"
                         />
-                        <label htmlFor="110">from 110 -130</label>
+                        <label
+                          htmlFor="110"
+                          onClick={(e) => filterProductPrice(110, 130)}
+                        >
+                          from 110 -130
+                        </label>
                       </div>
                       <div className="filter">
                         <input
@@ -184,7 +201,12 @@ const Shop = () => {
                           className="price"
                           name="price"
                         />
-                        <label htmlFor="150">more than 150</label>
+                        <label
+                          htmlFor="150"
+                          onClick={(e) => filterProductPrice(150, 5425450)}
+                        >
+                          more than 150
+                        </label>
                       </div>
                     </div>
                     <div className="side-bar__twitter mt-5">

@@ -4,10 +4,10 @@ const initialState = { products: [], loading: false, error: null, item: {} };
 // fetch Data
 export const fetchData = createAsyncThunk(
   "posts/fetchData",
-  async (_, thunkApi) => {
+  async (query, thunkApi) => {
     const { rejectWithValue } = thunkApi;
     try {
-      const res = await fetch("http://localhost:3009/products");
+      const res = await fetch(`http://localhost:3009/products?${query}`);
       const data = await res.json();
       return data;
     } catch (error) {
