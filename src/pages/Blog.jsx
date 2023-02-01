@@ -1,13 +1,88 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
+import { filereaderHandler } from "../Hooks/use-convertImg";
+import { Footer } from "../components/Footer";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPosts, postposts } from "../RTK/postSlice";
 
 const Blog = () => {
   const [category, setCategory] = useState("");
   const [title, setTitle] = useState("");
   const [name, setName] = useState("");
   const [post, setPost] = useState("");
-  const createPost = () => {
-    console.log({ category, name, title, post, post });
+  const [mainImg, setImg] = useState("");
+  const { postsUpload } = useSelector((state) => state.postSlice);
+  const dispatch = useDispatch();
+  const inputElement = useRef();
+
+  const createPost = async () => {
+    const dataForm = {
+      category,
+      title,
+      userName: name,
+      desc: post,
+      mainImg,
+    };
+    // await axios.post("http://localhost:3009/blogPosts", dataForm);
+    dispatch(postposts(dataForm));
+    setCategory("");
+    setTitle("");
+    setName("");
+    setPost("");
+    dispatch(fetchPosts);
   };
+  // const fetchPosts = async () => {
+  //   const data = await axios.get("http://localhost:3009/blogPosts");
+  //   setPosts(data.data);
+  // };
+  useEffect(() => {
+    dispatch(fetchPosts());
+  }, [dispatch]);
+  useEffect(() => {
+    const fileUploadPrimary = inputElement.current;
+    filereaderHandler(mainImg, setImg, fileUploadPrimary);
+  }, [mainImg]);
+
+  const postsData = postsUpload.map((post) => (
+    <div className="blog__post my-5" key={post.id}>
+      <div className="post__image">
+        <img className="zoomable" src={post.mainImg} alt="" />
+      </div>
+      <div className="post__desc">
+        <div className="post__info">
+          <h5 className="post__category my-3">{post.category}</h5>
+          <h2 className="post__title my-3">
+            <a href="#">{post.title}.</a>
+          </h2>
+          <p className="post__para">{post.desc}</p>
+        </div>
+        <div className="post__comment d-flex align-items-center">
+          <div className="post__user-image me-3">
+            <img
+              src="Assets/Images/blog/aced9dc97780ca621adc476fe544bf9a.jpg"
+              alt=""
+            />
+          </div>
+          <div className="post__user-name d-flex align-items-center">
+            <h5>by {post.userName}</h5>
+            <span className="mx-2">/</span>
+            <h5>June 7, 2017</h5>
+            <div className="post-icon mx-4">
+              <a href="#">
+                <i className="fa-solid fa-message"></i>
+              </a>
+              <span>0</span>
+            </div>
+            <div className="post__share">
+              <a href="Comment.html">
+                <i className="fa-solid fa-share-from-square"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  ));
   return (
     <>
       {/* <!-- Start Blog Page --> */}
@@ -21,57 +96,7 @@ const Blog = () => {
               <div className="col-lg-9">
                 <div className="blog__content">
                   <div className="container">
-                    <ul className="posts">
-                      <div className="blog__post my-5">
-                        <div className="post__image">
-                          <img
-                            className="zoomable"
-                            src="Assets/Images/blog/blog-post-img-3.jpg"
-                            alt=""
-                          />
-                        </div>
-                        <div className="post__desc">
-                          <div className="post__info">
-                            <h5 className="post__category my-3">Epic</h5>
-                            <h2 className="post__title my-3">
-                              <a href="#">Lorem ipsum dolor sit amet.</a>
-                            </h2>
-                            <p className="post__para">
-                              Lorem ipsum dolor sit amet, consectetur
-                              adipisicing elit. Suscipit recusandae ratione quos
-                              alias mollitia! Autem ea eos laudantium, molestiae
-                              ex quae dolorum dolores. Dolore consectetur
-                              praesentium, repellat earum quibusdam accusamus
-                              nemo autem aut excepturi reprehenderit.
-                            </p>
-                          </div>
-                          <div className="post__comment d-flex align-items-center">
-                            <div className="post__user-image me-3">
-                              <img
-                                src="Assets/Images/blog/aced9dc97780ca621adc476fe544bf9a.jpg"
-                                alt=""
-                              />
-                            </div>
-                            <div className="post__user-name d-flex align-items-center">
-                              <h5>by admin</h5>
-                              <span className="mx-2">/</span>
-                              <h5>June 7, 2017</h5>
-                              <div className="post-icon mx-4">
-                                <a href="#">
-                                  <i className="fa-solid fa-message"></i>
-                                </a>
-                                <span>0</span>
-                              </div>
-                              <div className="post__share">
-                                <a href="Comment.html">
-                                  <i className="fa-solid fa-share-from-square"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </ul>
+                    <ul className="posts">{postsData}</ul>
                   </div>
                 </div>
               </div>
@@ -174,6 +199,21 @@ const Blog = () => {
                                   id="recipient-name"
                                   value={name}
                                   onChange={(e) => setName(e.target.value)}
+                                />
+                              </div>
+                              <div className="mb-3">
+                                <label
+                                  htmlFor="formFile"
+                                  className="form-label"
+                                >
+                                  Select Image
+                                </label>
+                                <input
+                                  className="form-control fileUploadPrimary"
+                                  type="file"
+                                  id="formFile"
+                                  ref={inputElement}
+                                  onChange={(e) => setImg(e.target.value)}
                                 />
                               </div>
                             </form>
@@ -289,6 +329,7 @@ const Blog = () => {
         </div>
       </section>
       {/* <!-- End Blog Page --> */}
+      <Footer />
     </>
   );
 };

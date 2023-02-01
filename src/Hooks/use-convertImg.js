@@ -1,5 +1,4 @@
 export const filereaderHandler = (mainImg, setImg, fileUploadPrimary) => {
-  console.log("zzz", fileUploadPrimary);
   // inputFile
   if (fileUploadPrimary.files[0]) {
     let primaryReader = new FileReader(); // fileReader Object
