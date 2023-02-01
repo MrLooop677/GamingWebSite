@@ -11,7 +11,7 @@ const AddproductPage = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(0);
   const [mainImg, setImg] = useState("");
   const formSubmit = (e) => {
     e.preventDefault();
