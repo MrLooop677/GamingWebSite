@@ -1,4 +1,21 @@
 import { useSelector } from "react-redux";
+// images
+import logo from "../pages/Assets/Images/foooter-logo.png"
+import art from "../pages/Assets/Images/Art Footer/art-footer.jpg"
+import art2 from "../pages/Assets/Images/Art Footer/art-footer2.jpg"
+import art3 from "../pages/Assets/Images/Art Footer/art-footer3.jpg"
+import art4 from "../pages/Assets/Images/Art Footer/art-footer4.jpg"
+import art5 from "../pages/Assets/Images/Art Footer/art-footer5.jpg"
+import art6 from "../pages/Assets/Images/Art Footer/art-footer6.jpg"
+
+// Icons
+import { FaSearch } from "react-icons/fa";
+import { FaRegCommentAlt } from "react-icons/fa";
+import { FaFacebookF } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
+import { FaLinkedinIn } from "react-icons/fa";
+import { FaTwitter } from "react-icons/fa";
 
 export function Footer() {
   const { postsUpload } = useSelector((state) => state.postSlice);
@@ -28,7 +45,7 @@ export function Footer() {
                 <div className="col-lg-3 mt--custom">
                   <div className="footer__logo">
                     <a href="index.html">
-                      <img src="Assets/Images/foooter-logo.png" alt="" />
+                      <img src={logo} alt="" />
                     </a>
                   </div>
                   <div className="footer__desc">
@@ -40,7 +57,7 @@ export function Footer() {
                   <div className="footer__search">
                     <input type="search" placeholder="Search" />
                     <a href="#">
-                      <i className="fa-solid fa-magnifying-glass"></i>
+                      <FaSearch />
                     </a>
                   </div>
                 </div>
@@ -53,42 +70,42 @@ export function Footer() {
                     <h3>Art Works</h3>
                     <div className="col-4">
                       <img
-                        src="Assets/Images/Art Footer/art-footer.jpg"
+                        src={art}
                         alt=""
                         srcSet=""
                       />
                     </div>
                     <div className="col-4">
                       <img
-                        src="Assets/Images/Art Footer/art-footer2.jpg"
+                        src={art2}
                         alt=""
                         srcSet=""
                       />
                     </div>
                     <div className="col-4">
                       <img
-                        src="Assets/Images/Art Footer/art-footer3.jpg"
+                        src={art3}
                         alt=""
                         srcSet=""
                       />
                     </div>
                     <div className="col-4">
                       <img
-                        src="Assets/Images/Art Footer/art-footer4.jpg"
+                        src={art4}
                         alt=""
                         srcSet=""
                       />
                     </div>
                     <div className="col-4">
                       <img
-                        src="Assets/Images/Art Footer/art-footer5.jpg"
+                        src={art5}
                         alt=""
                         srcSet=""
                       />
                     </div>
                     <div className="col-4">
                       <img
-                        src="Assets/Images/Art Footer/art-footer6.jpg"
+                        src={art6}
                         alt=""
                         srcSet=""
                       />
@@ -104,7 +121,7 @@ export function Footer() {
                     </p>
                     <input type="text" placeholder="Subscripe" />
                     <a href="#">
-                      <i className="fa-regular fa-message"></i>
+                      <FaRegCommentAlt />
                     </a>
                   </div>
                 </div>
@@ -128,27 +145,27 @@ export function Footer() {
                       href="https://www.facebook.com/AhmedNasser42/"
                       target="_blank"
                     >
-                      <i className="fa-brands fa-facebook-f"></i>
+                      <FaFacebookF />
                     </a>
                   </li>
                   <li className="icon-social">
                     <a href="#">
-                      <i className="fa-brands fa-whatsapp"></i>
+                    <FaWhatsapp />
                     </a>
                   </li>
                   <li className="icon-social">
                     <a href="#">
-                      <i className="fa-brands fa-instagram"></i>
+                    <FaInstagram />
                     </a>
                   </li>
                   <li className="icon-social">
                     <a href="#">
-                      <i className="fa-brands fa-linkedin-in"></i>
+                    <FaLinkedinIn />
                     </a>
                   </li>
                   <li className="icon-social">
                     <a href="#">
-                      <i className="fa-brands fa-twitter"></i>
+                    <FaTwitter />
                     </a>
                   </li>
                 </ul>

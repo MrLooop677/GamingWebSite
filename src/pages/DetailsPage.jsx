@@ -26,7 +26,7 @@ const DetailsPage = () => {
                 </div>
               </div>
               <div className="col-12">
-                <span className="card__type">game / {item.category}</span>
+                <span className="card__type">Category / {item.category}</span>
               </div>
             </div>
           </div>

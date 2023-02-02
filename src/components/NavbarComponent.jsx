@@ -1,12 +1,14 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
+import logo from "../pages/Assets/Images/logo.png";
+import { checkOut } from "../RTK/authSlice";
 const NavbarComponent = () => {
   const { cart } = useSelector((state) => state.cartSlice);
 
+  const dispatch = useDispatch();
   return (
     <>
-      <nav id="nav" className="navbar navbar-expand-lg nav-bar ">
+      <nav id="nav" className="navbar navbar-expand-lg nav-bar abs-nav">
         <div className="nav-phone fixed-nav d-flex d-lg-none  align-items-center">
           <button
             className="btn btn--icon mt-1"
@@ -18,7 +20,9 @@ const NavbarComponent = () => {
           <Link
             className="navbar-brand nav--custom-logo text-light text-center pe-3"
             to="/"
-          ></Link>
+          >
+            <img src={logo} alt="" />
+          </Link>
           <div
             className="offcanvas body--custom bx-shadow offcanvas-start canvas--edit"
             data-bs-scroll="true"
@@ -38,11 +42,7 @@ const NavbarComponent = () => {
             <div className="offcanvas-body">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0 w-100 justify-content-endtext-center">
                 <li className="nav-item">
-                  <Link
-                    className="nav-link active__nav"
-                    aria-current="page"
-                    to=""
-                  >
+                  <Link className="nav-link" aria-current="page" to="">
                     <span>Home</span>
                   </Link>
                 </li>
@@ -86,21 +86,19 @@ const NavbarComponent = () => {
         </div>
 
         <div className="container d-lg-block position-relative">
-          <Link
-            className="navbar-brand nav--custom-logo text-light d-lg-block d-none"
-            to="/"
-          ></Link>
           <div
             className="collapse navbar-collapse navbar__links--bg"
             id="navbarSupportedContent"
           >
+            <Link
+              className="navbar-brand nav--custom-logo text-light d-lg-block d-none"
+              to="/"
+            >
+              <img src={logo} alt="" />
+            </Link>
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 w-100 justify-content-end text-light text-center">
               <li className="nav-item">
-                <Link
-                  className="nav-link active__nav"
-                  aria-current="page"
-                  to=""
-                >
+                <Link className="nav-link" aria-current="page" to="">
                   <span>Home</span>
                 </Link>
               </li>
@@ -132,6 +130,13 @@ const NavbarComponent = () => {
               <li className="nav-item">
                 <Link className="nav-link" to="cart">
                   <span> Cart - {cart.length}</span>
+                </Link>
+                <Link
+                  className="nav-link"
+                  onClick={() => dispatch(checkOut())}
+                  to=""
+                >
+                  <span> CheckOut</span>
                 </Link>
               </li>
             </ul>

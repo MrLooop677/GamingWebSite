@@ -1,75 +1,107 @@
 import { Footer } from "../components/Footer";
+import React, { useEffect, useRef, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import { Navigation, Autoplay } from "swiper";
+import CounterDown from "../components/CounterDown"
+
+// Images
+import sliderImg from "./Assets/Images/Slider/main-home-rev-1.jpg"
+import sliderImg2 from "./Assets/Images/Slider/main-home-rev-2.jpg"
+import sliderImg3 from "./Assets/Images/Slider/main-home-rev-3.jpg"
+import cdImg from "./Assets/Images/cd-img.png"
+import arrow from "./Assets/Images/inner-img-1.png"
+
+// Video 
+import video from "./Assets/Images/XiaoYing_Video_1663854199515.mp4"
+
 
 export default function Home() {
+
+  const videoEl = useRef(null);
+  const attemptPlay = () => {
+    videoEl &&
+      videoEl.current &&
+      videoEl.current.play().catch(error => {
+        alert('error')
+      });
+  };
+  useEffect(() => {
+    attemptPlay();
+  }, []);
+
+
   return (
     <>
     {/* <!-- Start Swiper Section --> */}
-      <div class="swiper landingSwiper position-relative">
-          <div class="swiper-wrapper">
-          <div class="swiper-slide">
-              <div class="slider-img animate-img">
-                  <img src="Assets/Images/Slider/main-home-rev-1.jpg" alt=""/>
-              </div>
-              <div class="overlay"></div>
-              <div class="slider__content d-flex justify-content-center align-items-center flex-column">
-                  <h2>Take Your Breath</h2>
-                  <div class="underline my-4">
-                      <img src="Assets/Images/inner-img-1.png" alt=""/>
-                  </div>
-                  <div class="slider__paragraph animate-text">
-                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque incidunt qui quae ex voluptatem porro aliquid fuga sit quia ea.</p>
-                  </div>
-              </div>
+    <Swiper navigation={true}
+        modules={[Navigation, Autoplay]} 
+        autoplay={{
+          delay: 4500,
+          disableOnInteraction: false,
+        }} 
+        loop={true} 
+        className="landingSwiper">
+        <SwiperSlide>
+          <div className="slider-img animate-img">
+                    <img src={sliderImg} alt=""/>
+                </div>
+                <div className="overlay"></div>
+                <div className="slider__content d-flex justify-content-center align-items-center flex-column">
+                    <h2>Take Your Breath</h2>
+                    <div className="underline my-4">
+                        <img src={arrow} alt=""/>
+                    </div>
+                    <div className="slider__paragraph animate-text">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque incidunt qui quae ex voluptatem porro aliquid fuga sit quia ea.</p>
+                    </div>
           </div>
-          <div class="swiper-slide">
-              <div class="slider-img animate-img">
-                  <img src="Assets/Images/Slider/main-home-rev-2.jpg" alt=""/>
+        </SwiperSlide>
+        <SwiperSlide>
+        <div className="slider-img animate-img">
+                  <img src={sliderImg2} alt=""/>
               </div>
-              <div class="overlay"></div>
-              <div class="slider__content d-flex justify-content-center align-items-center flex-column">
+              <div className="overlay"></div>
+              <div className="slider__content d-flex justify-content-center align-items-center flex-column">
                   <h2>Get Ready To</h2>
-                  <div class="underline my-4">
-                      <img src="Assets/Images/inner-img-1.png" alt=""/>
+                  <div className="underline my-4">
+                      <img src={arrow} alt=""/>
                   </div>
-                  <div class="slider__paragraph animate-text">
+                  <div className="slider__paragraph animate-text">
                       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque incidunt qui quae ex voluptatem porro aliquid fuga sit quia ea.</p>
                   </div>
               </div>
-          </div>
-          <div class="swiper-slide">
-              <div class="slider-img animate-img">
-                  <img src="Assets/Images/Slider/main-home-rev-3.jpg" alt=""/>
+        </SwiperSlide>
+        <SwiperSlide>
+        <div className="slider-img animate-img">
+                  <img src={sliderImg3} alt=""/>
               </div>
-              <div class="overlay"></div>
-              <div class="slider__content d-flex justify-content-center align-items-center flex-column">
+              <div className="overlay"></div>
+              <div className="slider__content d-flex justify-content-center align-items-center flex-column">
                   <h2>The Another Dimensions</h2>
-                  <div class="underline my-4">
-                      <img src="Assets/Images/inner-img-1.png" alt=""/>
+                  <div className="underline my-4">
+                      <img src={arrow} alt=""/>
                   </div>
-                  <div class="slider__paragraph animate-text">
+                  <div className="slider__paragraph animate-text">
                       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque incidunt qui quae ex voluptatem porro aliquid fuga sit quia ea.</p>
                   </div>
               </div>
-          </div>
-
-          </div>
-          <div class="swiper-button-next btn-swipe d-lg-block d-none"><div></div></div>
-          <div class="swiper-button-prev btn-swipe d-lg-block d-none"><div></div></div>
-          <div class="swiper-pagination d-lg-block d-none"></div>
-      </div>
+        </SwiperSlide>
+    </Swiper>
     {/* <!-- End Swiper Section --> */}
 
     {/* <!-- Start Intro-Web Section --> */}
-    <section class="intro">
-        <div class="custom-container">
-            <div class="intro__contents text-center text-light">
+    <section className="intro">
+        <div className="custom-container">
+            <div className="intro__contents text-center text-light">
                 <h4>Welcome To The Another Dimensions</h4>
                 <h2>One of the best 'Souls-like' launcher games</h2>
-                <div class="inner-line mb-3">
-                    <img src="Assets/Images/inner-img-1.png" alt=""/>
+                <div className="inner-line mb-3">
+                    <img src={arrow} alt=""/>
                 </div>
                 <p>There is in the land of Mnar a vast still lake that is fed by no stream and out of which no stream flows. Ten thousand years ago there stood by its shore the mighty city of Sarnath, but Sarnath stands there no more.</p>
-                <a href="Assets/Images/download-img.jpg" download="" class="primary-btn">
+                <a href="Assets/Images/download-img.jpg" download="" className="primary-btn">
                     Download Launcher
                 </a>
             </div>
@@ -78,21 +110,31 @@ export default function Home() {
     {/* <!-- End Intro-Web Section --> */}
     
     {/* <!-- Start Video Section --> */}
-    <section class="video bx-shadow">
-        <video loop="" muted="" autoplay="" class="video-iframe" width="100%">
-            <source type="video/mp4" src="./Assets/Images/XiaoYing_Video_1663854199515.mp4"/>
+    <section className="video bx-shadow"
+    >
+        <video playsInline
+          loop
+          muted
+          alt="All the devices" 
+          ref={videoEl}
+          className="video-iframe" 
+          width="100%">
+            <source type="video/mp4" src={video}/>
         </video>
     </section>
     {/* <!-- End Video Section --> */}
 
-    {/* <!-- End Video Section --> */}
+    {/* <!-- Start Games Section --> */}
     <section className="games">
+      {/* PreOrder */}
       <section className="pre-order">
         <div className="pre-order__contents py-5">
           <div className="container">
             <div className="row">
               <div className="col-lg-6">
-                <div className="image"></div>
+                <div className="image">
+                  <img src={cdImg} alt="" />
+                </div>
               </div>
               <div className="col-lg-6 d-flex text-lg-start text-sm-center pre-order__descr justify-content-center align-items-center">
                 <div className="pre-order__desc">
@@ -123,127 +165,76 @@ export default function Home() {
           </div>
         </div>
       </section>
+      {/* PreOrder */}
+
+      {/* Trending */}
       <section className="trending position-relative bx-shadow">
         <div className="trending__contents py-5">
           <div className="container">
             <div className="trending__content">
               <h2 className="main-text">Trending Games</h2>
               <div className="slider-trending">
-                <div className="swiper trending">
-                  <div className="swiper-wrapper">
-                    <div className="swiper-slide trendingSwiper">
-                      <div className="trending-card">
-                        <div className="image"></div>
-                        <div className="trending-card__desc text-center">
-                          <a href="#">
-                            <h2>Elden Ring</h2>
-                          </a>
-                          <p>Lorem ipsum dolor sit amet consectetur.</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="swiper-slide trendingSwiper">
-                      <div className="trending-card">
-                        <div className="image"></div>
-                        <div className="trending-card__desc text-center">
-                          <a href="#">
-                            <h2>Elden Ring</h2>
-                          </a>
-                          <p>Lorem ipsum dolor sit amet consectetur.</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="swiper-slide trendingSwiper">
-                      <div className="trending-card">
-                        <div className="image"></div>
-                        <div className="trending-card__desc text-center">
-                          <a href="#">
-                            <h2>Elden Ring</h2>
-                          </a>
-                          <p>Lorem ipsum dolor sit amet consectetur.</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="swiper-slide trendingSwiper">
-                      <div className="trending-card">
-                        <div className="image"></div>
-                        <div className="trending-card__desc text-center">
-                          <a href="#">
-                            <h2>Elden Ring</h2>
-                          </a>
-                          <p>Lorem ipsum dolor sit amet consectetur.</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="swiper-slide trendingSwiper">
-                      <div className="trending-card">
-                        <div className="image"></div>
-                        <div className="trending-card__desc text-center">
-                          <a href="#">
-                            <h2>Elden Ring</h2>
-                          </a>
-                          <p>Lorem ipsum dolor sit amet consectetur.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                {/* <Swiper
+                      modules={[Navigation, Autoplay]} 
+                      autoplay={{
+                        delay: 1000,
+                        disableOnInteraction: false,
+                      }} 
+                      loop={true} 
+                      className="trending mt-5">
+                        <SwiperSlide>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                          <div className="trending-card">
+                            <div className="image"></div>
+                            <div className="trending-card__desc text-center">
+                              <a href="#">
+                                <h2>Elden Ring</h2>
+                              </a>
+                              <p>Lorem ipsum dolor sit amet consectetur.</p>
+                            </div>
+                            </div>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                          <div className="trending-card">
+                            <div className="image"></div>
+                            <div className="trending-card__desc text-center">
+                              <a href="#">
+                                <h2>Elden Ring</h2>
+                              </a>
+                              <p>Lorem ipsum dolor sit amet consectetur.</p>
+                            </div>
+                            </div>
+                        </SwiperSlide>
+                    </Swiper> */}
+                          
+                      
               </div>
             </div>
           </div>
         </div>
       </section>
+                    
     </section>
-    {/* <!-- End Video Section --> */}
+    {/* <!-- End Games Section --> */}
 
     {/* <!-- Start Coming-Soon Section --> */}
-    <section class="coming-soon position-relative">
-        <div class="coning-soon__contents h-100 d-flex justify-content-center align-items-center">
-            <div class="container">
-                <div class="coning-soon__content">
-                    <h2 class="main-text">Coming Out In</h2>
-                    <div class="image-break">
-                        <img src="Assets/Images/inner-img-1.png" alt=""/>
-                    </div>
-                    <div class="count-down">
-                        <div class="row text-center fs-1 fw-bold justify-content-center">
-                            <div class="col-md-3 pt-5 col-5">
-                                <div class="days">00</div>
-                                <span>Days</span>
-                            </div>
-                            <div class="col-md-3 pt-5 col-5">
-                                <div class="hours">00</div>
-                                <span>Hours</span>
-                            </div>
-                            <div class="col-md-3 pt-5 col-5">
-                                <div class="minutes">00</div>
-                                <span>Minutes</span>
-                            </div>
-                            <div class="col-md-3 pt-5 col-5">
-                                <div class="seconds">00</div>
-                                <span>Seconds</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+      <CounterDown />
     {/* <!-- End Coming-Soon Section --> */}
 
     {/* <!-- Start NewsLetter Section --> */}
-    <section class="newsletter">
-        <div class="news__contents">
-            <div class="container h-100">
-                <div class="news__content d-flex justify-content-center align-items-center flex-column h-100">
+    <section className="newsletter">
+        <div className="news__contents">
+            <div className="container h-100">
+                <div className="news__content d-flex justify-content-center align-items-center flex-column h-100">
                     <h5>Subscribe To Our Newsletter</h5>
-                    <h2 class="main-text">AND KEEP UP TO DATE</h2>
-                    <div class="image">
+                    <h2 className="main-text">AND KEEP UP TO DATE</h2>
+                    <div className="image">
                         <img src="Assets/Images/inner-img-1.png" alt=""/>
                     </div>
-                    <div class="email-input">
-                        <input type="email" class="custom--input" name="" id="" placeholder="Your Email"/>
-                        <button class="primary-btn--non-bg">Submit</button>
+                    <div className="email-input">
+                        <input type="email" className="custom--input" name="" id="" placeholder="Your Email"/>
+                        <button className="primary-btn--non-bg">Submit</button>
                     </div>
                 </div>
             </div>
@@ -251,7 +242,7 @@ export default function Home() {
     </section>
     {/* <!-- End NewsLetter Section --> */}
     
-      <Footer/>
+    <Footer/>
     </>
   );
 }

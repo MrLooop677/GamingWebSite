@@ -1,15 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Footer } from "../components/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "../RTK/productSlice";
 import { addToCart } from "../RTK/cartSlice";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
+
+// Shop Slider Image Import
+import logo from "./Assets/Images/Shop/shop-slider.png";
+import logoSec from "./Assets/Images/Shop/shop-slider2.png";
+import logoThird from "./Assets/Images/Shop/shop-slider3.png";
+import logoForth from "./Assets/Images/Shop/shop-slider4.png";
+import logoFifth from "./Assets/Images/Shop/shop-slider5.png";
 
 const Shop = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.productSlice);
-
+  const [searchInp, setSearchInp] = useState("");
+  const [result, setResult] = useState([]);
   useEffect(() => {
     dispatch(fetchData());
   }, [dispatch]);
@@ -17,9 +29,35 @@ const Shop = () => {
   const filterProductPrice = async (min, max) => {
     dispatch(fetchData(`price_gte=${min}&price_lte=${max}`));
   };
-  const filterAllPrice = async () => {
+
+  const filterCategory = async (category) => {
+    dispatch(fetchData(`category=${category}`));
+  };
+  const filterAllData = async () => {
     dispatch(fetchData());
   };
+
+  useEffect(() => {
+    // const Search = async () => {
+    //   dispatch(fetchData(`name=${searchInp}`));
+    //   setResult(...products);
+    // };
+
+    if (!result.length && !searchInp) {
+      dispatch(fetchData());
+      console.log("znznznzn");
+    } else if (searchInp) {
+      const debounceSearch = setTimeout(() => {
+        if (searchInp) {
+          dispatch(fetchData(`name=${searchInp}`));
+        }
+      }, 2000);
+
+      return () => {
+        clearTimeout(debounceSearch);
+      };
+    }
+  }, [searchInp, result.length]);
 
   const card = products.map((product) => (
     <div className="col-lg-4 mb-3 mt-4" key={product.id}>
@@ -51,7 +89,7 @@ const Shop = () => {
               </div>
             </div>
             <div className="col-12">
-              <span className="card__type">game / {product.category}</span>
+              <span className="card__type">Category / {product.category}</span>
             </div>
           </div>
         </div>
@@ -70,7 +108,7 @@ const Shop = () => {
                   <div className="swiper-wrapper">
                     <div className="swiper-slide">
                       <div className="shop__image">
-                        <img src="Assets/Images/Shop/shop-slider.png" alt="" />
+                        <img src="" alt="" />
                       </div>
                     </div>
                     <div className="swiper-slide">
@@ -102,11 +140,62 @@ const Shop = () => {
                   <div className="swiper-pagination shopPagi"></div>
                 </div>
               </div>
+              <Swiper
+                navigation={true}
+                modules={[Navigation]}
+                className="mySwiper"
+                loop={true}
+              >
+                <SwiperSlide>
+                  <img src={logo} alt="" />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <img src={logoSec} alt="" />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <img src={logoThird} alt="" />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <img src={logoForth} alt="" />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <img src={logoFifth} alt="" />
+                </SwiperSlide>
+              </Swiper>
               <div className="row">
                 <div className="col-lg 9">
                   <div className="shop__contents__cards">
                     <div className="row mt-5">{card}</div>
                   </div>
+                  <nav aria-label="Page navigation example">
+                    <ul className="pagination justify-content-center my-5">
+                      <li className="page-item btn-swipe">
+                        <a className="page-link" href="#" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <li className="page-item btn-swipe">
+                        <a className="page-link" href="#">
+                          1
+                        </a>
+                      </li>
+                      <li className="page-item btn-swipe">
+                        <a className="page-link" href="#">
+                          2
+                        </a>
+                      </li>
+                      <li className="page-item btn-swipe">
+                        <a className="page-link" href="#">
+                          3
+                        </a>
+                      </li>
+                      <li className="page-item btn-swipe">
+                        <a className="page-link" href="#" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
                 </div>
 
                 <div className="col-lg-3 mt-5">
@@ -119,6 +208,8 @@ const Shop = () => {
                           placeholder="Search"
                           name=""
                           id=""
+                          value={searchInp}
+                          onChange={(e) => setSearchInp(e.target.value)}
                         />
                         <i className="fa-solid fa-magnifying-glass"></i>
                       </div>
@@ -132,8 +223,9 @@ const Shop = () => {
                           className="price"
                           label=""
                           name="price"
+                          onClick={(e) => filterAllData()}
                         />
-                        <label htmlFor="All" onClick={(e) => filterAllPrice()}>
+                        <label htmlFor="All" onClick={(e) => filterAllData()}>
                           All
                         </label>
                       </div>
@@ -144,6 +236,7 @@ const Shop = () => {
                           className="price"
                           label=""
                           name="price"
+                          onClick={(e) => filterProductPrice(30, 50)}
                         />
                         <label
                           htmlFor="30"
@@ -158,6 +251,7 @@ const Shop = () => {
                           type="radio"
                           className="price"
                           name="price"
+                          onClick={(e) => filterProductPrice(60, 80)}
                         />
                         <label
                           htmlFor="60"
@@ -172,6 +266,7 @@ const Shop = () => {
                           type="radio"
                           className="price"
                           name="price"
+                          onClick={(e) => filterProductPrice(90, 100)}
                         />
                         <label
                           htmlFor="90"
@@ -186,6 +281,7 @@ const Shop = () => {
                           type="radio"
                           className="price"
                           name="price"
+                          onClick={(e) => filterProductPrice(110, 130)}
                         />
                         <label
                           htmlFor="110"
@@ -200,33 +296,42 @@ const Shop = () => {
                           type="radio"
                           className="price"
                           name="price"
+                          onClick={(e) => filterProductPrice(150, 9999)}
                         />
                         <label
                           htmlFor="150"
-                          onClick={(e) => filterProductPrice(150, 5425450)}
+                          onClick={(e) => filterProductPrice(150, 9999)}
                         >
                           more than 150
                         </label>
                       </div>
                     </div>
-                    <div className="side-bar__twitter mt-5">
-                      <h2>Twitter Feed</h2>
-                      <p>
-                        <i className="fa-brands fa-twitter"></i>{" "}
-                        <a href="#">@AhmedAbdElNasser </a> Hey, please DM us so
-                        we can provide more details. Thanks!
-                      </p>
-                    </div>
                     <div className="side-bar__categories my-5">
                       <h2>Categories</h2>
                       <h4>
-                        <a href="#">Epic</a>
+                        <button onClick={(e) => filterAllData()}>
+                          All Categories
+                        </button>
                       </h4>
                       <h4>
-                        <a href="#">Playing</a>
+                        <button onClick={(e) => filterCategory("cd-games")}>
+                          Cd Games
+                        </button>
                       </h4>
                       <h4>
-                        <a href="#">Uncategorized</a>
+                        <button onClick={(e) => filterCategory("clothes")}>
+                          Clothes
+                        </button>
+                      </h4>
+                      <h4>
+                        <button onClick={(e) => filterCategory("electronics")}>
+                          Electronics
+                        </button>
+                      </h4>
+                      <h4>
+                        <button onClick={(e) => filterCategory("access")}>
+                          Accessories
+                        </button>
                       </h4>
                     </div>
                   </div>
