@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Footer } from "../components/Footer";
+import { useDispatch } from "react-redux";
+import { postForm } from "../RTK/contactSlice";
 
 const ContactUs = () => {
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setmessage] = useState("");
+  const dispatch = useDispatch();
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(postForm({ userName, email, message, id: Date.now() }));
+    setUserName("");
+    setEmail("");
+    setmessage("");
+  };
   return (
     <>
       {/* <!-- Start Contact-Us --> */}
@@ -23,6 +36,8 @@ const ContactUs = () => {
                   className="form-control input-val input--custom"
                   id="validationDefault01"
                   required
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
                   placeholder="YOUR NAME"
                 />
               </div>
@@ -33,6 +48,8 @@ const ContactUs = () => {
                   className="form-control input-val input--custom"
                   id="validationDefault02"
                   required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder=" EMAIL"
                 />
               </div>
@@ -43,15 +60,18 @@ const ContactUs = () => {
                   rows="10"
                   id="validationDefault03"
                   className="w-100 input-val input--custom"
+                  value={message}
+                  onChange={(e) => setmessage(e.target.value)}
                 ></textarea>
               </div>
               <div className="col-12">
-                <a
+                <button
                   className="btn btn-warning btn__mail input--custom"
                   type="submit"
+                  onClick={submitHandler}
                 >
                   SUBMIT
-                </a>
+                </button>
               </div>
             </form>
           </div>

@@ -6,6 +6,7 @@ import withReactContent from "sweetalert2-react-content";
 import { deleteData, fetchData } from "../RTK/productSlice";
 import { deteteItem } from "../RTK/cartSlice";
 import { Button, Table } from "react-bootstrap";
+import { checkOut } from "../RTK/authSlice";
 
 //sweet alert
 const MySwal = withReactContent(Swal);
@@ -37,18 +38,33 @@ const AdminPage = () => {
           <div className="col-md-6">
             <div className="row justify-content-between">
               <div
-                className="col-md-5 btn btn-success mb-3 mt-5"
+                className="col-md-3 btn btn-success mb-3 mt-5"
                 onClick={(e) => setTap(false)}
               >
                 Dash Board
               </div>
               <div
-                className="col-md-5 btn btn-success mb-3 mt-5"
+                className="col-md-3 btn btn-success mb-3 mt-5"
                 onClick={(e) => setTap(true)}
               >
                 Requests
               </div>
             </div>
+          </div>
+          <div className="col-md-6 ">
+            <Link
+              to="/"
+              className="col-md-3 btn btn-success mb-3 mt-5 ms-auto d-block"
+              onClick={() => dispatch(checkOut())}
+            >
+              CheckOut
+            </Link>
+            <Link
+              to="/AdminPage/MessagePage"
+              className="col-md-3 btn btn-success mb-3 mt-5 ms-auto d-block"
+            >
+              MessagePage
+            </Link>
           </div>
         </div>
         {tap ? (

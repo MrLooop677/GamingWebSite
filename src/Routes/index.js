@@ -14,6 +14,9 @@ import AddproductPage from "../pages/AddproductPage";
 import EditproductPage from "../pages/EditproductPage";
 import DetailsPage from "../pages/DetailsPage";
 import Cart from "../pages/Cart";
+import Login from "../pages/Login";
+import SignUp from "../pages/Register";
+import MessagePage from "../pages/MessagePage";
 
 export const routes = createBrowserRouter([
   {
@@ -61,6 +64,10 @@ export const routes = createBrowserRouter([
         element: <AdminPage />,
       },
       {
+        path: "AdminPage/MessagePage",
+        element: <MessagePage />,
+      },
+      {
         path: "AddproductPage",
         element: <AddproductPage />,
       },
@@ -75,6 +82,14 @@ export const routes = createBrowserRouter([
       {
         path: "Cart",
         element: <Cart />,
+      },
+      {
+        path: "Login",
+        element: <Login />,
+      },
+      {
+        path: "Register",
+        element: <SignUp />,
       },
     ],
   },
